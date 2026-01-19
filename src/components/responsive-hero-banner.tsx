@@ -52,7 +52,6 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   secondaryButtonHref = "#",
   partners = [],
 }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-neutral-100 overflow-x-hidden">
@@ -67,10 +66,10 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
         {/* HEADER */}
         <header className="relative z-10 px-6 pt-4">
           <div className="flex items-center justify-between">
-            <a
-              href="/"
+            <div
               className="inline-flex items-center justify-center bg-center w-[100px] h-[40px] bg-cover rounded"
               style={{ backgroundImage: `url(${logoUrl})` }}
+              aria-label="Logo"
             />
 
             <nav className="hidden md:flex items-center gap-2">
@@ -128,13 +127,13 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
             {partners.length > 0 && (
               <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
                 {partners.map((partner, index) => (
-                  <a
+                  <div
                     key={index}
-                    href={partner.href}
                     className="w-[120px] h-[36px] bg-center bg-contain bg-no-repeat opacity-80 hover:opacity-100 transition"
                     style={{
                       backgroundImage: `url(${partner.logoUrl})`,
                     }}
+                    aria-label={`Partner ${index + 1}`}
                   />
                 ))}
               </div>

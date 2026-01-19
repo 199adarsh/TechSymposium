@@ -172,7 +172,6 @@ const CashbackPartnersDemo = () => {
       logo: <Slack />,
       href: "#",
     },
- 
   ];
 
   return (
