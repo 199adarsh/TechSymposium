@@ -43,11 +43,11 @@ function App() {
     <div className="App relative min-h-screen w-full">
       <ResponsiveHeroBanner
         badgeLabel="New"
-        badgeText="First Commercial Flight to Mars 2026"
-        title="Journey Beyond Earth"
-        titleLine2="Into the Cosmos"
-        description="Experience the cosmos like never before. Our advanced spacecraft and cutting-edge technology make interplanetary travel accessible, safe, and unforgettable."
-        primaryButtonText="Book Your Journey"
+        badgeText="Tech Symposium 2026"
+        title="A national stage for future engineers."
+        titleLine2=" "
+        description="Where India’s brightest engineering minds compete, collaborate, and create."
+        primaryButtonText="Register Now"
         secondaryButtonText="Watch Launch"
         ctaButtonText="Events"
       />

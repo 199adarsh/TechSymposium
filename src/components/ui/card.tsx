@@ -20,7 +20,7 @@ export interface CashbackPartnersCardProps {
 }
 
 /**
- * A responsive, theme-adaptive card component to display cashback partners.
+ * A responsive, theme-adaptive card component to display EXPLORE.
  * Features a grid layout and subtle animations on load.
  */
 export const CashbackPartnersCard = ({
@@ -69,7 +69,7 @@ export const CashbackPartnersCard = ({
         <h2 className="text-lg font-semibold">{title}</h2>
         <a
           href={viewAllHref}
-          aria-label="View all partners"
+          aria-label="Explore Events partners"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 text-muted-foreground transition-colors hover:bg-muted"
         >
           <ArrowUpRight className="h-5 w-5" />
@@ -131,53 +131,48 @@ const FigmaLogo = () => (
 const CashbackPartnersDemo = () => {
   const partnersData: Partner[] = [
     {
-      name: "Google",
+      name: "COMPUTER SCIENCE ",
       cashback: "1.5%",
       logo: <GoogleLogo />,
       href: "#",
     },
     {
-      name: "N8n",
+      name: "AI ML",
       cashback: "1.1%",
       logo: <AppleLogo />,
       href: "#",
     },
     {
-      name: "Slack",
+      name: "DATA SCIENCE",
       cashback: "3.2%",
       logo: <Slack />,
       href: "#",
     },
     {
-      name: "Figma",
+      name: "ENTC",
       cashback: "2.8%",
       logo: <FigmaLogo />,
       href: "#",
     },
      {
-      name: "Google",
+      name: "ELECTRICAL",
       cashback: "1.5%",
       logo: <GoogleLogo />,
       href: "#",
     },
     {
-      name: "N8n",
+      name: "MECHANICAL",
       cashback: "1.1%",
       logo: <AppleLogo />,
       href: "#",
     },
     {
-      name: "Slack",
+      name: "CIVIL",
       cashback: "3.2%",
       logo: <Slack />,
       href: "#",
     },
-    {
-      name: "Figma",
-      cashback: "2.8%",
-      logo: <FigmaLogo />,
-      href: "#",
-    },
+ 
   ];
 
   return (
@@ -221,21 +216,20 @@ const CashbackPartnersDemo = () => {
         <header className="mb-10 flex flex-col gap-6 border-b border-neutral-900/10 pb-6 transition-colors duration-500 md:flex-row md:items-end md:justify-between dark:border-white/10">
           <div className="flex flex-col gap-2">
             <span className="text-xs uppercase tracking-[0.35em] text-neutral-500 transition-colors duration-500 dark:text-white/40">
-              Partner Network
+              Explore Our Events
             </span>
             <h2 className="text-3xl font-black tracking-tight text-neutral-900 transition-colors duration-500 md:text-5xl dark:text-white">
-              Cashback Partners
+              CLUBS
             </h2>
           </div>
           <div className="flex flex-col items-start gap-4 md:items-end">
             <p className="max-w-sm text-sm text-neutral-600 transition-colors duration-500 md:text-base dark:text-white/60">
-              Exclusive partnerships offering competitive cashback rates on premium tools and services.
-            </p>
+              Discover competitions, workshops, and challenges hosted by our club to test skill and spark growth.          </p>
             <button
               type="button"
               className="rounded-full border border-neutral-900/15 px-4 py-1 text-[10px] font-medium uppercase tracking-[0.35em] text-neutral-600 transition-colors duration-500 hover:bg-neutral-900/5 hover:text-neutral-900 dark:border-white/20 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
             >
-              View All
+              Explore Events
             </button>
           </div>
         </header>

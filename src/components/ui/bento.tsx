@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Aperture, BarChart3, LayoutGrid, Activity, Layers } from "lucide-react";
+import {  Trophy,
+  Layers3,
+  Gauge,
+  Users,
+  History,} from "lucide-react";
 
 const getRootTheme = () => {
   if (typeof document === "undefined") {
@@ -137,59 +141,51 @@ function FeaturesSectionMinimal() {
     return () => observer.disconnect();
   }, []);
 
-  const toggleTheme = () => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    const current = getRootTheme();
-    const next = current === "dark" ? "light" : "dark";
-    root.classList.toggle("dark", next === "dark");
-    root.classList.toggle("light", next === "light");
-    root.setAttribute("data-theme", next);
-    setTheme(next);
-    try {
-      window.localStorage?.setItem("bento-theme", next);
-    } catch (_err) {
-      /* ignore */
-    }
-  };
 
-  const features = [
-    {
-      title: "System Patterns",
-      blurb: "Foundational blocks arranged with deliberate rhythm and precise spacing across the viewport grid.",
-      meta: "Layout",
-      icon: Aperture,
-      animation: "bento2-float 6s ease-in-out infinite",
-    },
-    {
-      title: "Signal Balance",
-      blurb: "Monochrome surfaces and tight contrast ratios keep focus on intent over ornamentation.",
-      meta: "Tone",
-      icon: BarChart3,
-      animation: "bento2-pulse 4s ease-in-out infinite",
-    },
-    {
-      title: "Structured Flow",
-      blurb: "Information passes through aligned channels for clarity, speed, and effortless scanning.",
-      meta: "Flow",
-      icon: LayoutGrid,
-      animation: "bento2-tilt 5.5s ease-in-out infinite",
-    },
-    {
-      title: "Clean Signals",
-      blurb: "Each icon is drawn once, animated gently, and rendered strictly in strokes for a disciplined feel.",
-      meta: "Craft",
-      icon: Activity,
-      animation: "bento2-drift 8s ease-in-out infinite",
-    },
-    {
-      title: "Quiet Energy",
-      blurb: "Subtle motion hints at responsiveness without ever distracting from the message conveyed.",
-      meta: "Pulse",
-      icon: Layers,
-      animation: "bento2-glow 7s ease-in-out infinite",
-    },
-  ];
+
+const features = [
+  {
+    title: "National-Level Competition",
+    blurb:
+      "A curated arena where future engineers across India compete through precision-built challenges and real-world problem solving.",
+    meta: "OVERVIEW",
+    icon: Trophy,
+    animation: "bento2-float 6s ease-in-out infinite",
+  },
+  {
+    title: "Multi-Domain Events",
+    blurb:
+      "Coding, data science, robotics, CAD, design—each discipline, thoughtfully represented on one national stage.",
+    meta: "CATEGORIES",
+    icon: Layers3,
+    animation: "bento2-pulse 4s ease-in-out infinite",
+  },
+  {
+    title: "Skill-Driven Format",
+    blurb:
+      "Every competition is designed to test clarity of thought, speed of execution, and depth of understanding.",
+    meta: "FORMAT",
+    icon: Gauge,
+    animation: "bento2-tilt 5.5s ease-in-out infinite",
+  },
+  {
+    title: "Open to Future Engineers",
+    blurb:
+      "A common platform for students from DKTE and institutions across India to compete on equal ground.",
+    meta: "ELIGIBILITY",
+    icon: Users,
+    animation: "bento2-drift 8s ease-in-out infinite",
+  },
+  {
+    title: "Built on Legacy",
+    blurb:
+      "After the success of Tech Symposium 2K25, we return with elevated standards and sharper challenges.",
+    meta: "HISTORY",
+    icon: History,
+    animation: "bento2-glow 7s ease-in-out infinite",
+  },
+];
+
 
   const spans = [
     "col-span-2 row-span-2 md:col-span-4 md:row-span-2",
@@ -245,22 +241,22 @@ function FeaturesSectionMinimal() {
         <header className="mb-10 flex flex-col gap-6 border-b border-neutral-900/10 pb-6 transition-colors duration-500 md:flex-row md:items-end md:justify-between dark:border-white/10">
           <div className="flex flex-col gap-2">
             <span className="text-xs uppercase tracking-[0.35em] text-neutral-500 transition-colors duration-500 dark:text-white/40">
-              Grid Studies
+              About
             </span>
             <h2 className="text-3xl font-black tracking-tight text-neutral-900 transition-colors duration-500 md:text-5xl dark:text-white">
-              Monochrome Bento
+              TECH SYMPOSIUM 
             </h2>
           </div>
           <div className="flex flex-col items-start gap-4 md:items-end">
             <p className="max-w-sm text-sm text-neutral-600 transition-colors duration-500 md:text-base dark:text-white/60">
-              A stark layout built on modular spans, animated outlines, and purposeful whitespace.
+              A national-level technical competition bringing together engineering talent from across India
             </p>
             <button
               type="button"
-              onClick={toggleTheme}
+            
               className="rounded-full border border-neutral-900/15 px-4 py-1 text-[10px] font-medium uppercase tracking-[0.35em] text-neutral-600 transition-colors duration-500 hover:bg-neutral-900/5 hover:text-neutral-900 dark:border-white/20 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
             >
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              07 MARCH 2026
             </button>
           </div>
         </header>
@@ -279,7 +275,7 @@ function FeaturesSectionMinimal() {
         </div>
 
         <footer className="mt-16 border-t border-neutral-900/10 pt-6 text-xs uppercase tracking-[0.2em] text-neutral-500 transition-colors duration-500 dark:border-white/10 dark:text-white/40">
-          Quiet precision for expressive systems.
+          Compete. Perform. Rise.
         </footer>
       </section>
     </div>
