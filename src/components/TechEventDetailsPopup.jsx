@@ -10,83 +10,157 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
   const [activeSection, setActiveSection] = useState(0);
 
   const eventDetails = {
-    'radiant': {
-      title: 'RADIANT',
-      time: 'March 15-17, 2024',
-      location: 'Virtual + Silicon Valley',
-      description: 'Revolutionary metagame platform that seamlessly integrates Web2 and Web3 gaming experiences into a unified reward ecosystem.',
+    'codekshestra': {
+      title: 'CODEKSHESTRA',
+      time: '24 Hours (Tech-Symposium 2K26)',
+      location: 'CSE / AI-ML / AI-DS Department',
+      description: '24-hour hackathon focused on software project development with live building, innovation, and problem-solving.',
       rounds: [
-        { title: 'Qualification Round', desc: 'Initial screening and portfolio review' },
-        { title: 'Semi-Finals', desc: 'Technical challenges and live coding' },
-        { title: 'Grand Finale', desc: 'Final presentation and awards ceremony' }
+        { title: 'Hackathon Phase', desc: '24-hour continuous software development challenge' }
       ],
-      video: '/videos/feature-1.mp4'
+      video: '/videos/codekshestra.mp4'
     },
-    'zigma': {
-      title: 'ZIGMA',
-      time: 'March 22-24, 2024',
-      location: 'Tokyo, Japan',
-      description: 'Anime and gaming-inspired NFT collection and IP expansion platform bringing together digital art and blockchain technology.',
+
+    'e3': {
+      title: 'E3 EVENT',
+      time: 'March 07, 2026',
+      location: 'EL-1 and EL-2 Classrooms, Electrical Dept.',
+      description: 'One-day technical event testing analytical, logical, and problem-solving skills.',
       rounds: [
-        { title: 'Art Submission', desc: 'Digital artwork and character design submission' },
-        { title: 'Community Voting', desc: 'Community judging and feedback phase' },
-        { title: 'NFT Minting', desc: 'Final selection and NFT minting event' }
+        { title: 'PDF Mania', desc: 'Technical knowledge round' },
+        { title: 'Puzzle Bars', desc: 'Logic and puzzle-solving round' },
+        { title: 'Final Round', desc: 'Final evaluation round' }
       ],
-      video: '/videos/feature-2.mp4'
+      video: '/videos/e3.mp4'
     },
-    'nexus': {
-      title: 'NEXUS',
-      time: 'April 5-7, 2024',
-      location: 'Berlin, Germany',
-      description: 'Gamified social hub adding new dimensions of play to social interaction for Web3 communities and digital spaces.',
+
+    'robotantra': {
+      title: 'ROBOTANTRA',
+      time: 'March 07, 2026',
+      location: 'Open space near back gate',
+      description: 'Robotics competition focusing on design, screening, and final execution.',
       rounds: [
-        { title: 'Social Challenge', desc: 'Community engagement and networking tasks' },
-        { title: 'Platform Demo', desc: 'Live platform demonstration and testing' },
-        { title: 'Integration Awards', desc: 'Best integration and innovation awards' }
+        { title: 'Screening Round', desc: 'Initial evaluation of robots' },
+        { title: 'Final Round', desc: 'Final performance and judging' }
       ],
-      video: '/videos/feature-3.mp4'
+      video: '/videos/robotantra.mp4'
     },
-    'azul': {
-      title: 'AZUL',
-      time: 'April 12-14, 2024',
-      location: 'Austin, Texas',
-      description: 'Cross-world AI Agent elevating your gameplay to be more fun and productive with intelligent assistance.',
+
+    'ecocanvas': {
+      title: 'ECO CANVAS',
+      time: 'March 07, 2026',
+      location: 'Microprocessor Lab, ETC Department',
+      description: 'Poster presentation event focused on environmental awareness and innovation.',
       rounds: [
-        { title: 'AI Training', desc: 'AI model training and optimization' },
-        { title: 'Beta Testing', desc: 'Closed beta with community feedback' },
-        { title: 'Public Launch', desc: 'Public release and showcase event' }
+        { title: 'Screening Round', desc: 'Poster screening and shortlisting' },
+        { title: 'Final Round', desc: 'Final poster presentation' }
       ],
-      video: '/videos/feature-4.mp4'
+      video: '/videos/ecocanvas.mp4'
     },
-    'more': {
-      title: 'MORE FEATURES',
-      time: 'April 19-21, 2024',
-      location: 'Miami, Florida',
-      description: 'Additional features and experiences coming soon to enhance your journey through the metagame layer.',
+
+    'mechfit': {
+      title: 'MECH-FIT',
+      time: 'Tech-Symposium 2K26',
+      location: 'Mechanical Engineering Department',
+      description: 'Technical and practical mechanical engineering competition.',
       rounds: [
-        { title: 'Feature Preview', desc: 'Exclusive preview of upcoming features' },
-        { title: 'Developer Workshop', desc: 'Hands-on development and integration' },
-        { title: 'Feature Release', desc: 'Official feature launch and demonstration' }
+        { title: 'Technical MCQ', desc: '30 questions in 20 minutes (no mobile phones)' },
+        { title: 'Assembly War', desc: 'Fastest mechanical assembly challenge (team of 2)' }
       ],
-      video: '/videos/feature-5.mp4'
+      video: '/videos/mechfit.mp4'
     },
-    'features': {
-      title: 'FEATURES SHOWCASE',
-      time: 'April 26-28, 2024',
-      location: 'San Francisco, CA',
-      description: 'Explore our complete collection of innovative metagame experiences and cutting-edge technology demonstrations.',
+
+    'funomech': {
+      title: 'FUN-O-MECH',
+      time: 'Tech-Symposium 2K26',
+      location: 'Mechanical Engineering Department',
+      description: 'Fun-filled mechanical event combining creativity, quizzes, and exploration.',
       rounds: [
-        { title: 'Innovation Expo', desc: 'Technology showcase and demonstrations' },
-        { title: 'Expert Panels', desc: 'Industry expert discussions and insights' },
-        { title: 'Awards Ceremony', desc: 'Recognition of outstanding innovations' }
+        { title: 'Balloon Car Race', desc: 'Cardboard car race challenge' },
+        { title: 'Rapid Fire Quiz', desc: 'Automobile-based quiz' },
+        { title: 'Treasure Hunt', desc: 'On-the-spot rules exploration round' }
       ],
-      video: '/videos/feature-5.mp4'
+      video: '/videos/funomech.mp4'
+    },
+
+    'cadonova': {
+      title: 'CADONOVA',
+      time: 'Tech-Symposium 2K26',
+      location: 'Civil Engineering Department',
+      description: 'AutoCAD-based event focusing on planning, drawing, and design skills.',
+      rounds: [
+        { title: 'Quiz', desc: 'AutoCAD, building planning, and drawing quiz' },
+        { title: 'Design Round', desc: 'Planning and drawing using AutoCAD' }
+      ],
+      video: '/videos/cadonova.mp4'
+    },
+
+    'surveysprint': {
+      title: 'THE SURVEY SPRINT',
+      time: 'Tech-Symposium 2K26',
+      location: 'Civil Engineering Department',
+      description: 'Survey-based team event combining quizzes, puzzles, and treasure hunting.',
+      rounds: [
+        { title: 'Surveying Quiz', desc: 'MCQ-based surveying knowledge test' },
+        { title: 'Instrument Puzzle', desc: 'Reassemble surveying instrument image' },
+        { title: 'Survey Treasure Hunt', desc: 'Final exploration challenge' }
+      ],
+      video: '/videos/surveysprint.mp4'
     }
   };
 
-  const event = eventDetails[eventTitle?.props?.children?.[0]?.toLowerCase()] || 
-               eventDetails[eventTitle?.toString().toLowerCase().replace(/[^a-z]/g, '')] || 
-               eventDetails.features;
+  // Mapping from department/category titles to specific events
+  const departmentEventMapping = {
+    'hackathon': 'codekshestra',
+    'mechanical': 'mechfit', // Could also be 'funomech' - using mechfit as default
+    'mecanical': 'mechfit', // Handle potential spelling issue
+    'electrical': 'e3',
+    'entc': 'robotantra', // Could also be 'ecocanvas' - using robotantra as default
+    'civil': 'cadonova', // Could also be 'surveysprint' - using cadonova as default
+    'explore events': 'codekshestra' // Default for general explore
+  };
+
+  const normalizeEventTitle = (title) => {
+    console.log('=== NEW POPUP OPEN ===');
+    console.log('Debug - Raw title:', title);
+    console.log('Debug - Title type:', typeof title);
+    
+    if (!title) return 'codekshestra';
+    
+    // Handle React element case
+    if (title?.props?.children) {
+      console.log('Debug - React element children:', title.props.children);
+      // Handle nested React elements - extract text properly
+      const extractTextFromChildren = (children) => {
+        if (typeof children === 'string') return children;
+        if (Array.isArray(children)) {
+          return children.map(child => extractTextFromChildren(child)).join('');
+        }
+        if (children?.props?.children) {
+          return extractTextFromChildren(children.props.children);
+        }
+        return '';
+      };
+      
+      const textContent = extractTextFromChildren(title.props.children).toLowerCase().replace(/[^a-z]/g, '');
+      console.log('Debug - Extracted text content:', textContent);
+      const mappedEvent = departmentEventMapping[textContent] || textContent;
+      console.log('Debug - Mapped event:', mappedEvent);
+      return mappedEvent;
+    }
+    
+    // Handle string case
+    const normalizedTitle = title.toString().toLowerCase().replace(/[^a-z]/g, '');
+    console.log('Debug - Normalized string title:', normalizedTitle);
+    const mappedEvent = departmentEventMapping[normalizedTitle] || normalizedTitle;
+    console.log('Debug - Final mapped event:', mappedEvent);
+    return mappedEvent;
+  };
+
+  const eventKey = normalizeEventTitle(eventTitle);
+  console.log('Debug - Final eventKey:', eventKey);
+  const event = eventDetails[eventKey] || eventDetails.codekshestra;
+  console.log('Debug - Selected event:', event.title);
 
   useEffect(() => {
     if (isOpen && popupRef.current) {
