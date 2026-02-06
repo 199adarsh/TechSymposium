@@ -62,13 +62,24 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
 
   return (
     <div className="relative size-full">
-      <video
-        src={src}
-        loop
-        muted
-        autoPlay
-        className="absolute left-0 top-0 size-full object-cover object-center"
+      <div 
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{
+          backgroundImage: `url(/${src})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
+      {src.endsWith('.mp4') && (
+        <video
+          src={src}
+          loop
+          muted
+          autoPlay
+          className="absolute left-0 top-0 size-full object-cover object-center opacity-60"
+        />
+      )}
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
         <div>
           <h1 className="bento-title special-font">{title}</h1>
@@ -160,7 +171,7 @@ export const Features = () => {
       <div className="grid h-auto w-full grid-cols-1 gap-7 md:h-[135vh] md:grid-cols-2 md:grid-rows-3">
         <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-2">
           <BentoCard
-            src="videos/feature-2.mp4"
+            src="public/img/cardbackground.png"
             title={
               <>
                 HAC<b>K</b>ATHON
@@ -173,7 +184,7 @@ export const Features = () => {
 
         <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-1">
           <BentoCard
-            src="videos/feature-3.mp4"
+            src="img/cardbackground4.png"
             title={
               <>
               MEC<b>A</b>NICAL
@@ -186,7 +197,7 @@ export const Features = () => {
 
         <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-1">
           <BentoCard
-            src="videos/feature-4.mp4"
+            src="img/cardbackground2.png"
             title={
               <>
                 ELEC<b>T</b>RICAL
@@ -199,7 +210,7 @@ export const Features = () => {
 
         <BentoTilt className="bento-tilt_2 md:col-span-1 md:row-span-1">
           <BentoCard
-            src="videos/feature-4.mp4"
+            src="img/cardbackground3.png"
             title={
               <>
               EN<b>T</b>C
@@ -212,7 +223,7 @@ export const Features = () => {
 
         <BentoTilt className="bento-tilt_2 md:col-span-1 md:row-span-1">
           <BentoCard
-            src="videos/feature-3.mp4"
+            src="img/cardbackground4.png"
             title={
               <>
               CI<b>V</b>IL
