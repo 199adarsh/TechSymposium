@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import TechEventDetailsPopup from "./TechEventDetailsPopup";
 
 export const BentoTilt = ({ children, className = "" }) => {
   const [transformStyle, setTransformStyle] = useState("");
@@ -38,23 +39,26 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-export const BentoCard = ({ src, title, description, isComingSoon }) => {
+export const BentoCard = ({ src, title, description, onViewDetails }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [hoverOpacity, setHoverOpacity] = useState(0);
-  const hoverButtonRef = useRef(null);
+  const [hoveredButton, setHoveredButton] = useState(null);
 
-  const handleMouseMove = (event) => {
-    if (!hoverButtonRef.current) return;
-    const rect = hoverButtonRef.current.getBoundingClientRect();
-
+  const handleButtonMouseMove = (event, buttonType) => {
+    const rect = event.currentTarget.getBoundingClientRect();
     setCursorPosition({
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     });
   };
 
-  const handleMouseEnter = () => setHoverOpacity(1);
-  const handleMouseLeave = () => setHoverOpacity(0);
+  const handleButtonMouseEnter = (buttonType) => setHoveredButton(buttonType);
+  const handleButtonMouseLeave = () => setHoveredButton(null);
+
+  const handleViewDetailsClick = () => {
+    if (onViewDetails) {
+      onViewDetails(title);
+    }
+  };
 
   return (
     <div className="relative size-full">
@@ -73,42 +77,70 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
           )}
         </div>
 
-        {isComingSoon && (
+        <div className="flex flex-row gap-2">
+          {/* View Details Button */}
           <div
-            ref={hoverButtonRef}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onMouseMove={(e) => handleButtonMouseMove(e, 'details')}
+            onMouseEnter={() => handleButtonMouseEnter('details')}
+            onMouseLeave={handleButtonMouseLeave}
+            onClick={handleViewDetailsClick}
             className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
           >
             {/* Radial gradient hover effect */}
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
               style={{
-                opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                opacity: hoveredButton === 'details' ? 1 : 0,
+                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, #00000026)`,
               }}
             />
             <TiLocationArrow className="relative z-20" />
-            <p className="relative z-20">coming soon</p>
+            <p className="relative z-20">view details</p>
           </div>
-        )}
+
+          {/* Register Now Button */}
+          <div
+            onMouseMove={(e) => handleButtonMouseMove(e, 'register')}
+            onMouseEnter={() => handleButtonMouseEnter('register')}
+            onMouseLeave={handleButtonMouseLeave}
+            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
+          >
+            {/* Radial gradient hover effect */}
+            <div
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+              style={{
+                opacity: hoveredButton === 'register' ? 1 : 0,
+                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #fbbf2488, #00000026)`,
+              }}
+            />
+            <TiLocationArrow className="relative z-20" />
+            <p className="relative z-20">register now</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-const Features = () => (
+export const Features = () => {
+  const [isDetailsPopupOpen, setIsDetailsPopupOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleViewDetails = (eventTitle) => {
+    setSelectedEvent(eventTitle);
+    setIsDetailsPopupOpen(true);
+  };
+
+  return (
   <section className="bg-black pb-52">
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32">
         <p className="font-circular-web text-lg text-blue-50">
-          Into the Metagame Layer
+          Enter the Symposium
         </p>
         <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          Immerse yourself in a rich and ever-expanding universe where a vibrant
-          array of products converge into an interconnected overlay experience
-          on your world.
+        
+        Explore a dynamic digital space where emerging technologies unite to create seamless and interactive experiences.
         </p>
       </div>
 
@@ -117,76 +149,89 @@ const Features = () => (
           src="videos/feature-1.mp4"
           title={
             <>
-              radia<b>n</b>t
+              EXPLORE <b>E</b>VENTS
             </>
           }
-          description="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
-          isComingSoon
+          description="Discover a wide range of technical and non-technical events designed to challenge skills, spark creativity, and inspire innovation."
+          onViewDetails={handleViewDetails}
         />
       </BentoTilt>
 
-      <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-        <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+      <div className="grid h-auto w-full grid-cols-1 gap-7 md:h-[135vh] md:grid-cols-2 md:grid-rows-3">
+        <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-2">
           <BentoCard
             src="videos/feature-2.mp4"
             title={
               <>
-                zig<b>m</b>a
+                HAC<b>K</b>ATHON
               </>
             }
             description="An anime and gaming-inspired NFT collection - the IP primed for expansion."
-            isComingSoon
+            onViewDetails={handleViewDetails}
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
+        <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-1">
           <BentoCard
             src="videos/feature-3.mp4"
             title={
               <>
-                n<b>e</b>xus
+              MEC<b>A</b>NICAL
               </>
             }
             description="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
-            isComingSoon
+            onViewDetails={handleViewDetails}
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
+        <BentoTilt className="bento-tilt_1 md:col-span-1 md:row-span-1">
           <BentoCard
             src="videos/feature-4.mp4"
             title={
               <>
-                az<b>u</b>l
+                ELEC<b>T</b>RICAL
               </>
             }
             description="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
-            isComingSoon
+            onViewDetails={handleViewDetails}
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
-            <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re co<b>m</b>ing s<b>o</b>on.
-            </h1>
-
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
-          </div>
+        <BentoTilt className="bento-tilt_2 md:col-span-1 md:row-span-1">
+          <BentoCard
+            src="videos/feature-4.mp4"
+            title={
+              <>
+              EN<b>T</b>C
+              </>
+            }
+            description="Additional features and experiences coming soon to enhance your journey."
+            onViewDetails={handleViewDetails}
+          />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_2">
-          <video
-            src="videos/feature-5.mp4"
-            loop
-            muted
-            autoPlay
-            className="size-full object-cover object-center"
+        <BentoTilt className="bento-tilt_2 md:col-span-1 md:row-span-1">
+          <BentoCard
+            src="videos/feature-3.mp4"
+            title={
+              <>
+              CI<b>V</b>IL
+              </>
+            }
+            description="Explore our complete collection of innovative metagame experiences."
+            onViewDetails={handleViewDetails}
           />
         </BentoTilt>
       </div>
     </div>
+
+    <TechEventDetailsPopup 
+      isOpen={isDetailsPopupOpen}
+      onClose={() => setIsDetailsPopupOpen(false)}
+      eventTitle={selectedEvent}
+    />
   </section>
-);
+  );
+};
 
 export default Features;
