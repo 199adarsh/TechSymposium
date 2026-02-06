@@ -63,7 +63,7 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
   return (
     <div className="relative size-full">
       <div 
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full bg-black/80"
         style={{
           backgroundImage: `url(/${src})`,
           backgroundSize: 'cover',
@@ -77,7 +77,15 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
           loop
           muted
           autoPlay
+          playsInline
+          preload="metadata"
           className="absolute left-0 top-0 size-full object-cover object-center opacity-60"
+          onLoadedData={() => {
+            // Video loaded successfully
+          }}
+          onError={() => {
+            // Fallback to background if video fails
+          }}
         />
       )}
       <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
