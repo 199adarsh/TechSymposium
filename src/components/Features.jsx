@@ -172,7 +172,7 @@ export const Features = ({ id }) => {
         {/* Hero */}
         <BentoTilt className="relative mb-7 h-72 w-full overflow-hidden rounded-md md:h-[65vh]">
           <BentoCard
-            src="videos/feature-1.mp4"
+            src="/videos/feature-1.mp4"
             title={
               <>
                 EXPLORE <b>E</b>VENTS

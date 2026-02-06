@@ -20,7 +20,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Semi-Finals', desc: 'Technical challenges and live coding' },
         { title: 'Grand Finale', desc: 'Final presentation and awards ceremony' }
       ],
-      video: 'videos/feature-1.mp4'
+      video: '/videos/feature-1.mp4'
     },
     'zigma': {
       title: 'ZIGMA',
@@ -32,7 +32,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Community Voting', desc: 'Community judging and feedback phase' },
         { title: 'NFT Minting', desc: 'Final selection and NFT minting event' }
       ],
-      video: 'videos/feature-2.mp4'
+      video: '/videos/feature-2.mp4'
     },
     'nexus': {
       title: 'NEXUS',
@@ -44,7 +44,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Platform Demo', desc: 'Live platform demonstration and testing' },
         { title: 'Integration Awards', desc: 'Best integration and innovation awards' }
       ],
-      video: 'videos/feature-3.mp4'
+      video: '/videos/feature-3.mp4'
     },
     'azul': {
       title: 'AZUL',
@@ -56,7 +56,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Beta Testing', desc: 'Closed beta with community feedback' },
         { title: 'Public Launch', desc: 'Public release and showcase event' }
       ],
-      video: 'videos/feature-4.mp4'
+      video: '/videos/feature-4.mp4'
     },
     'more': {
       title: 'MORE FEATURES',
@@ -68,7 +68,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Developer Workshop', desc: 'Hands-on development and integration' },
         { title: 'Feature Release', desc: 'Official feature launch and demonstration' }
       ],
-      video: 'videos/feature-5.mp4'
+      video: '/videos/feature-5.mp4'
     },
     'features': {
       title: 'FEATURES SHOWCASE',
@@ -80,7 +80,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         { title: 'Expert Panels', desc: 'Industry expert discussions and insights' },
         { title: 'Awards Ceremony', desc: 'Recognition of outstanding innovations' }
       ],
-      video: 'videos/feature-5.mp4'
+      video: '/videos/feature-5.mp4'
     }
   };
 
