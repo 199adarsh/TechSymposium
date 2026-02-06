@@ -223,7 +223,7 @@ const DepartmentPopup = ({ isOpen, onClose }) => {
                     containerClass="bg-yellow-300 flex-center gap-1 text-[10px] px-2 py-1"
                     onClick={(e) => {
                       e.stopPropagation();
-                      console.log(`Register for: ${dept.title}`);
+                      window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank");
                     }}
                   />
                 </div>

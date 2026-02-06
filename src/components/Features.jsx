@@ -90,7 +90,7 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
       {/* Content */}
       <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-5 text-blue-50">
         <div>
-          <h1 className="bento-title special-font text-lg md:text-2xl">
+          <h1 className="bento-title special-font text-xl md:text-3xl lg:text-4xl">
             {title}
           </h1>
           {description && (
@@ -126,6 +126,7 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
             onMouseMove={handleButtonMouseMove}
             onMouseEnter={() => setHoveredButton("register")}
             onMouseLeave={() => setHoveredButton(null)}
+            onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
             className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-4 py-1.5 text-[10px] uppercase text-white/70 md:px-5 md:py-2 md:text-xs md:text-white/20"
           >
             <div

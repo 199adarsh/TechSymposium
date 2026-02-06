@@ -276,6 +276,7 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
               title="Register Now"
               leftIcon={<TiLocationArrow />}
               containerClass="bg-yellow-300 flex-center gap-2"
+              onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
             />
           </div>
         </div>
