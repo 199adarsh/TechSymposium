@@ -27,6 +27,14 @@ const NavBar = () => {
     setIsIndicatorActive((prev) => !prev);
   };
 
+  // Smooth scroll to section
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Manage audio playback
   useEffect(() => {
     if (isAudioPlaying) {
@@ -80,13 +88,13 @@ const NavBar = () => {
           <div className="flex h-full items-center">
             <div className="hidden md:block">
               {navItems.map((item, index) => (
-                <a
+                <button
                   key={index}
-                  href={`#${item.toLowerCase()}`}
+                  onClick={() => scrollToSection(item.toLowerCase())}
                   className="nav-hover-btn"
                 >
                   {item}
-                </a>
+                </button>
               ))}
             </div>
 

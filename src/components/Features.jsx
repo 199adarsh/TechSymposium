@@ -148,7 +148,7 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
 /* =========================
    Features Section
 ========================= */
-export const Features = () => {
+export const Features = ({ id }) => {
   const [isDetailsPopupOpen, setIsDetailsPopupOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -158,7 +158,7 @@ export const Features = () => {
   };
 
   return (
-    <section className="bg-black pb-52">
+    <section id={id} className="bg-black pb-52">
       <div className="container mx-auto px-3 md:px-10">
         {/* Intro */}
         <div className="px-5 py-32">
