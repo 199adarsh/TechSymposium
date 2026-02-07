@@ -63,10 +63,20 @@ const Hero = () => {
   );
 
   useGSAP(() => {
-    gsap.set("#video-frame", {
-      clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
-      borderRadius: "0% 0% 40% 10%",
-    });
+    // Mobile: full screen video without clip-path
+    if (window.innerWidth < 640) {
+      gsap.set("#video-frame", {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        borderRadius: "0% 0% 0% 0%",
+      });
+    } else {
+      // Desktop: original clip-path
+      gsap.set("#video-frame", {
+        clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+        borderRadius: "0% 0% 40% 10%",
+      });
+    }
+    
     gsap.from("#video-frame", {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       borderRadius: "0% 0% 0% 0%",
@@ -100,7 +110,7 @@ const Hero = () => {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 overflow-hidden rounded-lg">
+          <div className="mask-clip-path absolute-center absolute z-50 size-64 overflow-hidden rounded-lg sm:size-64">
             <VideoPreview>
               <div
                 className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in"
@@ -111,7 +121,7 @@ const Hero = () => {
                   loop
                   muted
                   id="current-video"
-                  className="size-64 origin-center scale-150 object-cover object-center"
+                  className="size-64 origin-center scale-150 object-cover object-center sm:size-64"
                   onLoadedData={handleVideoLoad}
                 />
               </div>
@@ -124,7 +134,7 @@ const Hero = () => {
             loop
             muted
             id="next-video"
-            className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+            className="absolute-center invisible absolute z-20 size-64 object-cover object-center sm:size-64"
             onLoadedData={handleVideoLoad}
           />
           <video
@@ -134,7 +144,7 @@ const Hero = () => {
             autoPlay
             loop
             muted
-            className="absolute left-0 top-0 size-full object-cover object-center"
+            className="absolute left-0 top-0 size-full object-cover object-center sm:size-full"
             onLoadedData={handleVideoLoad}
           />
         </div>
@@ -145,7 +155,21 @@ const Hero = () => {
 
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
-           
+            {/* Mobile text */}
+            <h1 className="mb-2 special-font text-3xl font-black text-blue-100 sm:hidden">
+              The story of <br />hidden talent
+            </h1>
+            <h2 className="mb-4 special-font text-xl font-black text-blue-100 sm:hidden">
+              Let's build the <br />next era of technology
+            </h2>
+            <h3 className="mb-5 special-font text-lg font-black text-blue-100 sm:hidden">
+              TECHSYMPIUM <br />A National Level Event
+            </h3>
+
+            {/* Desktop text (unchanged) */}
+            <div className="hidden sm:block">
+              {/* Keep existing desktop text structure here */}
+            </div>
 
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
               Enter the Metagame Layer <br /> Unleash the Play Economy

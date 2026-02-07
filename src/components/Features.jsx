@@ -239,7 +239,7 @@ export const Features = ({ id }) => {
 
         {/* Grid → stack on mobile */}
         <div className="flex flex-col gap-5 md:grid md:h-[80vh] md:grid-cols-2 md:grid-rows-3">
-          <BentoTilt className="relative h-32 md:h-auto md:row-span-2">
+          <BentoTilt className="relative h-44 md:h-auto md:row-span-2">
             <BentoCard
               src="img/cardbackground.png"
               title={
@@ -253,7 +253,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-32 md:h-auto">
+          <BentoTilt className="relative h-44 md:h-auto">
             <BentoCard
               src="img/cardbackground4.png"
               title={
@@ -271,7 +271,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-32 md:h-auto">
+          <BentoTilt className="relative h-44 md:h-auto">
             <BentoCard
               src="img/cardbackground2.png"
               title={
@@ -285,7 +285,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-32 md:h-auto">
+          <BentoTilt className="relative h-44 md:h-auto">
             <BentoCard
               src="img/cardbackground3.png"
               title={
@@ -303,7 +303,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-32 md:h-auto">
+          <BentoTilt className="relative h-44 md:h-auto">
             <BentoCard
               src="img/cardbackground4.png"
               title={
