@@ -156,15 +156,7 @@ const Hero = () => {
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
             {/* Mobile text */}
-            <h1 className="mb-2 special-font text-3xl font-black text-blue-100 sm:hidden">
-              The story of <br />hidden talent
-            </h1>
-            <h2 className="mb-4 special-font text-xl font-black text-blue-100 sm:hidden">
-              Let's build the <br />next era of technology
-            </h2>
-            <h3 className="mb-5 special-font text-lg font-black text-blue-100 sm:hidden">
-              TECHSYMPIUM <br />A National Level Event
-            </h3>
+          
 
             {/* Desktop text (unchanged) */}
             <div className="hidden sm:block">
@@ -172,7 +164,7 @@ const Hero = () => {
             </div>
 
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
-              Enter the Metagame Layer <br /> Unleash the Play Economy
+              Enter the Symposium<br />Show your talent !
             </p>
 
             <Button

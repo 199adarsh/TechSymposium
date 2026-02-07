@@ -1,108 +1,73 @@
-import { BentoTilt } from "./Features";
+import { SponsorCard } from "./sponsorcard";
 
 const Sponsors = ({ id }) => {
+  // Sample sponsor data matching the original structure
+const sponsorItems = [
+  {
+    time: "Platinum Sponsor",
+    name: "TECH CORP",
+    collection:
+      "Leading technology solutions provider with innovative IT infrastructure and cloud services",
+    imageSrc: "https://logo.clearbit.com/ibm.com",
+    website: "https://www.ibm.com",
+  },
+  {
+    time: "Gold Sponsor",
+    name: "INNOVATE",
+    collection:
+      "Cutting-edge research and development in artificial intelligence and machine learning",
+    imageSrc: "https://logo.clearbit.com/openai.com",
+    website: "https://openai.com",
+  },
+  {
+    time: "Silver Sponsor",
+    name: "DIGITAL",
+    collection:
+      "Digital transformation experts specializing in enterprise solutions and automation",
+    imageSrc: "https://logo.clearbit.com/accenture.com",
+    website: "https://www.accenture.com",
+  },
+  {
+    time: "Platinum Sponsor",
+    name: "PLATINUM PARTNER",
+    collection:
+      "Premium partnership with exclusive benefits and maximum visibility across all events",
+    imageSrc: "https://logo.clearbit.com/microsoft.com",
+    website: "https://www.microsoft.com",
+  },
+  {
+    time: "Gold Sponsor",
+    name: "GOLD SPONSOR",
+    collection:
+      "Major sponsor supporting innovation and technology excellence in education",
+    imageSrc: "https://logo.clearbit.com/google.com",
+    website: "https://www.google.com",
+  },
+  {
+    time: "Silver Sponsor",
+    name: "SILVER SPONSOR",
+    collection:
+      "Supporting partner committed to fostering technical talent and creativity",
+    imageSrc: "https://logo.clearbit.com/amazon.com",
+    website: "https://www.amazon.com",
+  },
+]
+
+
   return (
     <section id={id} className="bg-black pb-20">
       <div className="container mx-auto px-3 md:px-10">
         {/* Intro */}
-        <div className="px-5 py-16">
-          <p className="text-lg text-blue-50">Our Partners</p>
-          <p className="max-w-md text-lg text-blue-50 opacity-50">
-            Leading companies supporting innovation and technology excellence
-          </p>
+        <div className="py-16">
+          
         </div>
 
-        {/* Hero Sponsor */}
-        <div className="relative mb-6 h-48 w-full overflow-hidden rounded-md md:h-96">
-          <div className="relative size-full overflow-hidden rounded-md">
-            <div className="absolute inset-0 bg-gray-600/20" />
-            <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-5 text-blue-50">
-              <div>
-                <h1 className="bento-title special-font text-lg md:text-2xl lg:text-3xl">
-                  PLATIN<b>U</b>M
-                </h1>
-                <p className="mt-2 max-w-64 text-xs md:text-sm opacity-80">
-                  Premium partnership with exclusive benefits and maximum visibility
-                </p>
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="font-circular-web text-xs uppercase tracking-wider text-gray-300">
-                  Platinum Sponsor
-                </p>
-                <div className="w-2 h-2 rounded-full bg-gray-300" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Grid → stack on mobile */}
-        <div className="flex flex-col gap-4 md:grid md:h-96 md:grid-cols-2 md:grid-rows-2">
-          <div className="relative h-32 md:h-auto md:row-span-2">
-            <div className="relative size-full overflow-hidden rounded-md">
-              <div className="absolute inset-0 bg-gray-600/20" />
-              <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-4 text-blue-50">
-                <div>
-                  <h1 className="bento-title special-font text-lg md:text-xl lg:text-2xl">
-                    TECH <b>C</b>ORP
-                  </h1>
-                  <p className="mt-2 max-w-64 text-xs md:text-sm opacity-80">
-                    Leading technology solutions provider
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="font-circular-web text-xs uppercase tracking-wider text-gray-300">
-                    Platinum Sponsor
-                  </p>
-                  <div className="w-2 h-2 rounded-full bg-gray-300" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative h-32 md:h-auto">
-            <div className="relative size-full overflow-hidden rounded-md">
-              <div className="absolute inset-0 bg-yellow-600/20" />
-              <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-4 text-blue-50">
-                <div>
-                  <h1 className="bento-title special-font text-lg md:text-xl lg:text-2xl">
-                    INNOV<b>A</b>TE
-                  </h1>
-                  <p className="mt-2 max-w-64 text-xs md:text-sm opacity-80">
-                    Cutting-edge research and development
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="font-circular-web text-xs uppercase tracking-wider text-yellow-300">
-                    Gold Sponsor
-                  </p>
-                  <div className="w-2 h-2 rounded-full bg-yellow-300" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative h-32 md:h-auto">
-            <div className="relative size-full overflow-hidden rounded-md">
-              <div className="absolute inset-0 bg-blue-400/20" />
-              <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-4 text-blue-50">
-                <div>
-                  <h1 className="bento-title special-font text-lg md:text-xl lg:text-2xl">
-                    DIGIT<b>A</b>L
-                  </h1>
-                  <p className="mt-2 max-w-64 text-xs md:text-sm opacity-80">
-                    Digital transformation experts
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="font-circular-web text-xs uppercase tracking-wider text-blue-400">
-                    Silver Sponsor
-                  </p>
-                  <div className="w-2 h-2 rounded-full bg-blue-400" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Sponsor Carousel */}
+        <SponsorCard
+          title="Our Valued Sponsors"
+          subtitle="Partnering with industry leaders to bring you the best tech symposium experience"
+          items={sponsorItems}
+        />
 
         {/* CTA */}
         <div className="mt-12 text-center">

@@ -35,7 +35,7 @@ const About = () => {
 
         <AnimatedTitle
           title="TECH SYMPOSIUM <br /> A National Level Event"
-          containerClass="mt-5 !text-black text-center"
+          containerClass="mt-5 !text-black text-center !text-5xl sm:!text-4xl md:!text-5xl lg:!text-6xl"
         />
 
         <div className="about-subtext">
