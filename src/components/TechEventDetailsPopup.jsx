@@ -121,15 +121,10 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
   };
 
   const normalizeEventTitle = (title) => {
-    console.log('=== NEW POPUP OPEN ===');
-    console.log('Debug - Raw title:', title);
-    console.log('Debug - Title type:', typeof title);
-    
     if (!title) return 'codekshestra';
     
     // Handle React element case
     if (title?.props?.children) {
-      console.log('Debug - React element children:', title.props.children);
       // Handle nested React elements - extract text properly
       const extractTextFromChildren = (children) => {
         if (typeof children === 'string') return children;
@@ -143,24 +138,18 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
       };
       
       const textContent = extractTextFromChildren(title.props.children).toLowerCase().replace(/[^a-z]/g, '');
-      console.log('Debug - Extracted text content:', textContent);
       const mappedEvent = departmentEventMapping[textContent] || textContent;
-      console.log('Debug - Mapped event:', mappedEvent);
       return mappedEvent;
     }
     
-    // Handle string case
+    // Handle string case (for direct event keys)
     const normalizedTitle = title.toString().toLowerCase().replace(/[^a-z]/g, '');
-    console.log('Debug - Normalized string title:', normalizedTitle);
     const mappedEvent = departmentEventMapping[normalizedTitle] || normalizedTitle;
-    console.log('Debug - Final mapped event:', mappedEvent);
     return mappedEvent;
   };
 
   const eventKey = normalizeEventTitle(eventTitle);
-  console.log('Debug - Final eventKey:', eventKey);
   const event = eventDetails[eventKey] || eventDetails.codekshestra;
-  console.log('Debug - Selected event:', event.title);
 
   useEffect(() => {
     if (isOpen && popupRef.current) {

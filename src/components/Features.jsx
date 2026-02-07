@@ -50,7 +50,7 @@ export const BentoTilt = ({ children, className = "" }) => {
 /* =========================
    Bento Card
 ========================= */
-export const BentoCard = ({ src, title, description, onViewDetails }) => {
+export const BentoCard = ({ src, title, description, onViewDetails, events }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoveredButton, setHoveredButton] = useState(null);
 
@@ -61,6 +61,21 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
       y: event.clientY - rect.top,
     });
   };
+
+  // Extract text from React element for event identification
+  const extractTextFromElement = (element) => {
+    if (!element) return '';
+    if (typeof element === 'string') return element;
+    if (Array.isArray(element)) {
+      return element.map(child => extractTextFromElement(child)).join('');
+    }
+    if (element?.props?.children) {
+      return extractTextFromElement(element.props.children);
+    }
+    return '';
+  };
+
+  const departmentName = extractTextFromElement(title).toLowerCase().replace(/[^a-z]/g, '');
 
   return (
     <div className="relative size-full overflow-hidden rounded-md">
@@ -101,27 +116,51 @@ export const BentoCard = ({ src, title, description, onViewDetails }) => {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2">
-          {/* View Details */}
-          <div
-            onMouseMove={handleButtonMouseMove}
-            onMouseEnter={() => setHoveredButton("details")}
-            onMouseLeave={() => setHoveredButton(null)}
-            onClick={() => onViewDetails?.(title)}
-            className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-4 py-1.5 text-[10px] uppercase text-white/70 md:px-5 md:py-2 md:text-xs md:text-white/20"
-          >
+        <div className="flex flex-wrap gap-2">
+          {/* Multiple Event Buttons */}
+          {events && events.length > 0 ? (
+            events.map((event, index) => (
+              <div
+                key={event.key}
+                onMouseMove={handleButtonMouseMove}
+                onMouseEnter={() => setHoveredButton(`event-${event.key}`)}
+                onMouseLeave={() => setHoveredButton(null)}
+                onClick={() => onViewDetails?.(event.key)}
+                className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-3 py-1.5 text-[10px] uppercase text-white/70 md:px-4 md:py-2 md:text-xs md:text-white/20"
+              >
+                <div
+                  className="pointer-events-none absolute -inset-px transition duration-300"
+                  style={{
+                    opacity: hoveredButton === `event-${event.key}` ? 1 : 0,
+                    background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
+                  }}
+                />
+                <TiLocationArrow className="relative z-10" />
+                <span className="relative z-10">{event.name}</span>
+              </div>
+            ))
+          ) : (
+            /* Single View Details Button */
             <div
-              className="pointer-events-none absolute -inset-px transition duration-300"
-              style={{
-                opacity: hoveredButton === "details" ? 1 : 0,
-                background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
-              }}
-            />
-            <TiLocationArrow className="relative z-10" />
-            <span className="relative z-10">view details</span>
-          </div>
+              onMouseMove={handleButtonMouseMove}
+              onMouseEnter={() => setHoveredButton("details")}
+              onMouseLeave={() => setHoveredButton(null)}
+              onClick={() => onViewDetails?.(title)}
+              className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-4 py-1.5 text-[10px] uppercase text-white/70 md:px-5 md:py-2 md:text-xs md:text-white/20"
+            >
+              <div
+                className="pointer-events-none absolute -inset-px transition duration-300"
+                style={{
+                  opacity: hoveredButton === "details" ? 1 : 0,
+                  background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
+                }}
+              />
+              <TiLocationArrow className="relative z-10" />
+              <span className="relative z-10">view details</span>
+            </div>
+          )}
 
-          {/* Register */}
+          {/* Register Button */}
           <div
             onMouseMove={handleButtonMouseMove}
             onMouseEnter={() => setHoveredButton("register")}
@@ -207,6 +246,10 @@ export const Features = ({ id }) => {
                 </>
               }
               description="Engineering challenges that push real-world thinking."
+              events={[
+                { key: 'mechfit', name: 'MECH-FIT' },
+                { key: 'funomech', name: 'FUN-O-MECH' }
+              ]}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
@@ -233,6 +276,10 @@ export const Features = ({ id }) => {
                 </>
               }
               description="Electronics & communication challenges."
+              events={[
+                { key: 'robotantra', name: 'ROBOTANTRA' },
+                { key: 'ecocanvas', name: 'ECO CANVAS' }
+              ]}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
@@ -246,6 +293,10 @@ export const Features = ({ id }) => {
                 </>
               }
               description="Design, structure, and sustainability."
+              events={[
+                { key: 'cadonova', name: 'CADONOVA' },
+                { key: 'surveysprint', name: 'SURVEY SPRINT' }
+              ]}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
