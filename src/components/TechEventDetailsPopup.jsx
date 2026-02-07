@@ -242,10 +242,10 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4">
       <div
         ref={popupRef}
-        className="relative w-full max-w-4xl mx-auto bg-black rounded-2xl border border-white/20 overflow-hidden"
+        className="relative w-full max-w-2xl sm:max-w-4xl mx-auto bg-black rounded-2xl border border-white/20 overflow-hidden max-h-[90vh] overflow-y-auto"
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% 98%, 98% 100%, 0 100%)",
           transformStyle: "preserve-3d"
@@ -261,84 +261,87 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         />
 
         {/* Content Container */}
-        <div ref={contentRef} className="relative z-10 p-6 md:p-8">
+        <div ref={contentRef} className="relative z-10 p-4 sm:p-6 md:p-8">
           {/* Title Section */}
-          <div className="event-section mb-6">
-            <h1 className="special-font text-4xl md:text-5xl font-black text-blue-100 mb-4">
+          <div className="event-section mb-4 sm:mb-6">
+            <h1 className="special-font text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-blue-100 mb-2 sm:mb-4">
               {event.title}
             </h1>
           </div>
 
           {/* Time and Location Section */}
-          <div className="event-section mb-6">
-            <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-yellow-300 rounded-full" />
+          <div className="event-section mb-4 sm:mb-6">
+            <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:gap-8">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-300 rounded-full" />
                 <div>
-                  <p className="font-circular-web text-sm text-blue-50/60 uppercase tracking-wider">Time</p>
-                  <p className="font-circular-web text-base text-blue-100">{event.time}</p>
+                  <p className="font-circular-web text-xs sm:text-sm text-blue-50/60 uppercase tracking-wider">Time</p>
+                  <p className="font-circular-web text-sm sm:text-base text-blue-100">{event.time}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-blue-400 rounded-full" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-400 rounded-full" />
                 <div>
-                  <p className="font-circular-web text-sm text-blue-50/60 uppercase tracking-wider">Location</p>
-                  <p className="font-circular-web text-base text-blue-100">{event.location}</p>
+                  <p className="font-circular-web text-xs sm:text-sm text-blue-50/60 uppercase tracking-wider">Location</p>
+                  <p className="font-circular-web text-sm sm:text-base text-blue-100">{event.location}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Description Section */}
-          <div className="event-section mb-8">
-            <div className="bg-blue-75/30 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-              <p className="font-circular-web text-base text-blue-50/90 leading-relaxed">
+          <div className="event-section mb-6 sm:mb-8">
+            <div className="bg-blue-75/30 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10">
+              <p className="font-circular-web text-sm sm:text-base text-blue-50/90 leading-relaxed">
                 {event.description}
               </p>
             </div>
           </div>
 
           {/* 3 Rounds Section */}
-          <div className="event-section mb-8">
-            <h2 className="special-font text-xl md:text-2xl font-black text-blue-100 mb-6">
+          <div className="event-section mb-6 sm:mb-8">
+            <h2 className="special-font text-lg sm:text-xl md:text-2xl font-black text-blue-100 mb-4 sm:mb-6">
               Event <b>Rounds</b>
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {event.rounds.map((round, index) => (
                 <div
                   key={index}
-                  className="bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-yellow-300/30 transition-all duration-300"
+                  className="bg-black/40 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/10 hover:border-yellow-300/30 transition-all duration-300 md:flex md:items-start md:gap-3 md:gap-4"
                   onMouseEnter={() => handleSectionHover(index)}
                   onMouseLeave={() => handleSectionLeave(index)}
                 >
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-6 h-6 bg-yellow-300/20 rounded-full flex items-center justify-center">
+                  <div className="hidden md:flex flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-yellow-300/20 rounded-full items-center justify-center mt-0.5">
+                    <span className="text-yellow-300 font-circular-web text-xs sm:text-sm font-bold">{index + 1}</span>
+                  </div>
+                  <div className="md:hidden flex items-center gap-2 mb-2">
+                    <div className="w-4 h-4 bg-yellow-300/20 rounded-full flex items-center justify-center">
                       <span className="text-yellow-300 font-circular-web text-xs font-bold">{index + 1}</span>
                     </div>
-                    <h3 className="special-font text-base font-black text-blue-100">
+                    <h3 className="special-font text-sm font-black text-blue-100">
                       {round.title}
                     </h3>
                   </div>
-                  <p className="font-circular-web text-xs text-blue-50/80">
-                    {round.desc}
-                  </p>
+                  <div className="md:flex-grow">
+                    <h3 className="hidden md:block special-font text-sm sm:text-base font-black text-blue-100 mb-1 sm:mb-2">
+                      {round.title}
+                    </h3>
+                    <p className="font-circular-web text-xs text-blue-50/80 leading-relaxed">
+                      {round.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="event-section flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              id="visit-website"
-              title="Visit Website"
-              containerClass="bg-blue-500 hover:bg-blue-600 text-white flex-center gap-2"
-            />
+          <div className="event-section flex justify-center">
             <Button
               id="register-event"
               title="Register Now"
               leftIcon={<TiLocationArrow />}
-              containerClass="bg-yellow-300 flex-center gap-2"
+              containerClass="bg-yellow-300 flex-center gap-2 text-sm sm:text-base"
               onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
             />
           </div>
@@ -347,9 +350,9 @@ const TechEventDetailsPopup = ({ isOpen, onClose, eventTitle }) => {
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
+          className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>

@@ -50,7 +50,7 @@ export const BentoTilt = ({ children, className = "" }) => {
 /* =========================
    Bento Card
 ========================= */
-export const BentoCard = ({ src, title, description, onViewDetails, events }) => {
+export const BentoCard = ({ src, title, description, onViewDetails, events, showViewDetails = true, showVisitWebsite = true }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoveredButton, setHoveredButton] = useState(null);
 
@@ -81,7 +81,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
     <div className="relative size-full overflow-hidden rounded-md">
       {/* Background */}
       <div
-        className="absolute inset-0 bg-black/80"
+        className="absolute inset-0"
         style={{
           backgroundImage: `url(/${src})`,
           backgroundSize: "cover",
@@ -98,12 +98,12 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
           autoPlay
           playsInline
           preload="metadata"
-          className="absolute inset-0 size-full object-cover opacity-60"
+          className="absolute inset-0 size-full object-cover"
         />
       )}
 
       {/* Content */}
-      <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-5 text-blue-50">
+      <div className="relative z-10 flex size-full flex-col justify-between p-3 md:p-5 text-white">
         <div>
           <h1 className="bento-title special-font text-xl md:text-3xl lg:text-4xl">
             {title}
@@ -126,7 +126,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
                 onMouseEnter={() => setHoveredButton(`event-${event.key}`)}
                 onMouseLeave={() => setHoveredButton(null)}
                 onClick={() => onViewDetails?.(event.key)}
-                className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-3 py-1.5 text-[10px] uppercase text-white/70 md:px-4 md:py-2 md:text-xs md:text-white/20"
+                className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-3 py-1.5 text-[10px] uppercase text-white md:px-4 md:py-2 md:text-xs border border-white/20"
               >
                 <div
                   className="pointer-events-none absolute -inset-px transition duration-300"
@@ -139,14 +139,14 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
                 <span className="relative z-10">{event.name}</span>
               </div>
             ))
-          ) : (
+          ) : showViewDetails ? (
             /* Single View Details Button */
             <div
               onMouseMove={handleButtonMouseMove}
               onMouseEnter={() => setHoveredButton("details")}
               onMouseLeave={() => setHoveredButton(null)}
               onClick={() => onViewDetails?.(title)}
-              className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-4 py-1.5 text-[10px] uppercase text-white/70 md:px-5 md:py-2 md:text-xs md:text-white/20"
+              className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20"
             >
               <div
                 className="pointer-events-none absolute -inset-px transition duration-300"
@@ -158,6 +158,19 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
               <TiLocationArrow className="relative z-10" />
               <span className="relative z-10">view details</span>
             </div>
+          ) : null}
+
+          {/* Visit Website Button - Disabled */}
+          {showVisitWebsite && (
+            <div
+              onMouseMove={handleButtonMouseMove}
+              onMouseEnter={() => setHoveredButton("visit")}
+              onMouseLeave={() => setHoveredButton(null)}
+              className="relative flex cursor-not-allowed items-center gap-1 overflow-hidden rounded-full bg-gray-500/30 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-gray-400 md:px-5 md:py-2 md:text-xs border border-gray-600/30"
+            >
+              <TiLocationArrow className="relative z-10" />
+              <span className="relative z-10">visit website</span>
+            </div>
           )}
 
           {/* Register Button */}
@@ -166,7 +179,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events }) =>
             onMouseEnter={() => setHoveredButton("register")}
             onMouseLeave={() => setHoveredButton(null)}
             onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
-            className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-4 py-1.5 text-[10px] uppercase text-white/70 md:px-5 md:py-2 md:text-xs md:text-white/20"
+            className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20"
           >
             <div
               className="pointer-events-none absolute -inset-px transition duration-300"
@@ -218,13 +231,15 @@ export const Features = ({ id }) => {
               </>
             }
             description="Discover a wide range of technical and non-technical events designed to challenge skills, spark creativity, and inspire innovation."
+            showViewDetails={false}
+            showVisitWebsite={false}
             onViewDetails={handleViewDetails}
           />
         </BentoTilt>
 
         {/* Grid → stack on mobile */}
-        <div className="flex flex-col gap-5 md:grid md:h-[135vh] md:grid-cols-2 md:grid-rows-3">
-          <BentoTilt className="relative h-44 md:h-auto md:row-span-2">
+        <div className="flex flex-col gap-5 md:grid md:h-[80vh] md:grid-cols-2 md:grid-rows-3">
+          <BentoTilt className="relative h-32 md:h-auto md:row-span-2">
             <BentoCard
               src="img/cardbackground.png"
               title={
@@ -233,11 +248,12 @@ export const Features = ({ id }) => {
                 </>
               }
               description="High-energy problem solving meets innovation."
+              showVisitWebsite={false}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-32 md:h-auto">
             <BentoCard
               src="img/cardbackground4.png"
               title={
@@ -250,11 +266,12 @@ export const Features = ({ id }) => {
                 { key: 'mechfit', name: 'MECH-FIT' },
                 { key: 'funomech', name: 'FUN-O-MECH' }
               ]}
+              showVisitWebsite={false}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-32 md:h-auto">
             <BentoCard
               src="img/cardbackground2.png"
               title={
@@ -263,11 +280,12 @@ export const Features = ({ id }) => {
                 </>
               }
               description="Innovative circuits, power, and automation."
+              showVisitWebsite={false}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-32 md:h-auto">
             <BentoCard
               src="img/cardbackground3.png"
               title={
@@ -280,11 +298,12 @@ export const Features = ({ id }) => {
                 { key: 'robotantra', name: 'ROBOTANTRA' },
                 { key: 'ecocanvas', name: 'ECO CANVAS' }
               ]}
+              showVisitWebsite={false}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-32 md:h-auto">
             <BentoCard
               src="img/cardbackground4.png"
               title={
@@ -297,6 +316,7 @@ export const Features = ({ id }) => {
                 { key: 'cadonova', name: 'CADONOVA' },
                 { key: 'surveysprint', name: 'SURVEY SPRINT' }
               ]}
+              showVisitWebsite={false}
               onViewDetails={handleViewDetails}
             />
           </BentoTilt>
