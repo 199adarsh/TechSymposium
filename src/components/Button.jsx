@@ -1,43 +1,29 @@
-import * as React from "react"
+import clsx from "clsx";
 
-const buttonVariants = {
-  default:
-    "bg-primary text-primary-foreground shadow-sm shadow-black/5 hover:bg-primary/90",
-  destructive:
-    "bg-destructive text-destructive-foreground shadow-sm shadow-black/5 hover:bg-destructive/90",
-  outline:
-    "border border-input bg-background shadow-sm shadow-black/5 hover:bg-accent hover:text-accent-foreground",
-  secondary:
-    "bg-secondary text-secondary-foreground shadow-sm shadow-black/5 hover:bg-secondary/80",
-  ghost:
-    "hover:bg-accent hover:text-accent-foreground",
-  link:
-    "text-primary underline-offset-4 hover:underline",
-}
+const Button = ({ id, title, rightIcon, leftIcon, containerClass, onClick }) => {
+  return (
+    <button
+      id={id}
+      onClick={onClick}
+      className={clsx(
+        "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full bg-violet-50 px-7 py-3 text-black",
+        containerClass
+      )}
+    >
+      {leftIcon}
 
-const buttonSizes = {
-  default: "h-9 px-4 py-2",
-  sm: "h-8 rounded-lg px-3 text-xs",
-  lg: "h-10 rounded-lg px-8",
-  icon: "h-9 w-9",
-}
+      <span className="relative inline-flex overflow-hidden font-general text-xs uppercase">
+        <div className="translate-y-0 skew-y-0 transition duration-500 group-hover:translate-y-[-160%] group-hover:skew-y-12">
+          {title}
+        </div>
+        <div className="absolute translate-y-[164%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
+          {title}
+        </div>
+      </span>
 
-const Button = React.forwardRef(
-  ({ className = "", variant = "default", size = "default", ...props }, ref) => {
-    const variantClass = buttonVariants[variant] || buttonVariants.default
-    const sizeClass = buttonSizes[size] || buttonSizes.default
+      {rightIcon}
+    </button>
+  );
+};
 
-    return (
-      <button
-        ref={ref}
-        className={`inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${variantClass} ${sizeClass} ${className}`}
-        {...props}
-      />
-    )
-  }
-)
-
-Button.displayName = "Button"
-
-export default Button
-export { Button, buttonVariants }
+export default Button;
