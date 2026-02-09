@@ -5,258 +5,233 @@ import Button from "./Button";
 
 const DepartmentPopup = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
-  const cardRefs = useRef([]);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const contentRef = useRef(null);
+  const timelineRef = useRef(null);
 
   const departments = [
     {
-      id: 1,
-      title: "AI & ML",
-      description: "Neural networks and deep learning research",
-      videoSrc: "videos/feature-1.mp4"
+      title: 'Computer Science',
+      shortName: 'CSE',
+      description: 'Software development, AI, and cutting-edge technology.',
+      events: ['Codekshestra', 'AI Workshop', 'Hackathon'],
+      color: 'blue'
     },
     {
-      id: 2,
-      title: "WEB DEV",
-      description: "Full-stack development and modern frameworks",
-      videoSrc: "videos/feature-2.mp4"
+      title: 'Mechanical Engineering',
+      shortName: 'MECH',
+      description: 'Innovation in mechanical design and engineering.',
+      events: ['Mech-Fit', 'Fun-O-Mech', 'Robotics'],
+      color: 'orange'
     },
     {
-      id: 3,
-      title: "SECURITY",
-      description: "Ethical hacking and cryptography systems",
-      videoSrc: "videos/feature-3.mp4"
+      title: 'Electrical Engineering',
+      shortName: 'EE',
+      description: 'Power systems and electronics innovation.',
+      events: ['E3 Event', 'Circuit Design', 'Power Challenge'],
+      color: 'yellow'
     },
     {
-      id: 4,
-      title: "BLOCKCHAIN",
-      description: "Decentralized tech and smart contracts",
-      videoSrc: "videos/feature-4.mp4"
+      title: 'Electronics & Telecommunication',
+      shortName: 'ENTC',
+      description: 'Communication systems and electronic design.',
+      events: ['Robotantra', 'Eco Canvas', 'Signal Processing'],
+      color: 'purple'
+    },
+    {
+      title: 'Civil Engineering',
+      shortName: 'CIVIL',
+      description: 'Infrastructure design and sustainable construction.',
+      events: ['Cadonova', 'Survey Sprint', 'Bridge Design'],
+      color: 'green'
     }
   ];
 
   useEffect(() => {
     if (isOpen && popupRef.current) {
-      gsap.fromTo(popupRef.current,
-        {
-          opacity: 0,
-          scale: 0.9,
-          clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)"
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          duration: 0.8,
-          ease: "power3.out"
-        }
-      );
+      // Kill any existing timeline
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+      }
 
-      cardRefs.current.forEach((card, index) => {
-        if (card) {
-          gsap.fromTo(card,
-            {
-              opacity: 0,
-              y: 30
-            },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              delay: index * 0.15,
-              ease: "power2.out"
-            }
-          );
-        }
+      // Create new timeline
+      const tl = gsap.timeline();
+      timelineRef.current = tl;
+
+      // Initial state
+      gsap.set(popupRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        rotationY: 15,
+        transformPerspective: 1200
       });
+
+      gsap.set(contentRef.current, {
+        opacity: 0,
+        y: 50
+      });
+
+      // Animate popup entrance
+      tl.to(popupRef.current, {
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      })
+      .to(contentRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out"
+      }, "-=0.4");
+
+      // Stagger animate department cards
+      tl.fromTo(".dept-card", {
+        opacity: 0,
+        y: 30,
+        rotationX: -10,
+        transformPerspective: 800
+      }, {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power2.out"
+      }, "-=0.2");
     }
   }, [isOpen]);
 
-  const handleCardMouseMove = (event, cardIndex) => {
-    if (!cardRefs.current[cardIndex]) return;
-    
-    const rect = cardRefs.current[cardIndex].getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    setCursorPosition({ x, y });
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 8;
-    const rotateY = (centerX - x) / 8;
-    
-    gsap.to(cardRefs.current[cardIndex], {
-      rotationX: rotateX,
-      rotationY: rotateY,
-      transformPerspective: 1000,
-      duration: 0.3,
-      ease: "power2.out"
-    });
-  };
-
-  const handleCardMouseLeave = (cardIndex) => {
-    if (cardRefs.current[cardIndex]) {
-      gsap.to(cardRefs.current[cardIndex], {
-        rotationX: 0,
-        rotationY: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    }
-  };
-
-  const handleDepartmentSelect = (department) => {
-    gsap.to(cardRefs.current[department.id - 1], {
-      scale: 1.02,
-      duration: 0.2,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.inOut",
-      onComplete: () => {
-        console.log(`Selected: ${department.title}`);
-      }
-    });
-  };
-
   const handleClose = () => {
-    if (popupRef.current) {
-      gsap.to(popupRef.current, {
-        opacity: 0,
-        scale: 0.9,
-        clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-        duration: 0.5,
-        ease: "power2.in",
-        onComplete: onClose
+    if (timelineRef.current && popupRef.current) {
+      timelineRef.current.reverse().then(() => {
+        onClose();
       });
     }
+  };
+
+  const handleDepartmentClick = (deptShortName) => {
+    // This could open the TechEventDetailsPopup with the specific department
+    // For now, we'll just log it
+    console.log(`Department clicked: ${deptShortName}`);
   };
 
   if (!isOpen) return null;
 
+  const getColorClasses = (color) => {
+    const colorMap = {
+      blue: 'bg-blue-500/20 border-blue-400/30 text-blue-100',
+      orange: 'bg-orange-500/20 border-orange-400/30 text-orange-100',
+      yellow: 'bg-yellow-500/20 border-yellow-400/30 text-yellow-100',
+      purple: 'bg-purple-500/20 border-purple-400/30 text-purple-100',
+      green: 'bg-green-500/20 border-green-400/30 text-green-100'
+    };
+    return colorMap[color] || colorMap.blue;
+  };
+
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4">
       <div
         ref={popupRef}
-        className="relative w-full max-w-5xl mx-auto p-8 bg-black rounded-lg border border-white/20"
+        className="relative w-full max-w-2xl sm:max-w-4xl mx-auto bg-black rounded-2xl border border-white/20 overflow-hidden max-h-[90vh] overflow-y-auto"
         style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 95%, 85% 100%, 0 100%)",
+          clipPath: "polygon(0 0, 100% 0, 100% 98%, 98% 100%, 0 100%)",
           transformStyle: "preserve-3d"
         }}
       >
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="special-font text-4xl md:text-5xl font-black text-blue-100 mb-4">
-            <span className="text-blue-300">SELECT DEPARTMENT</span> 
-          </h2>
-          <p className="font-circular-web text-sm md:text-base text-blue-50/80 max-w-2xl mx-auto">
-            Select your specialized department and begin your journey into the metagame layer
-          </p>
-        </div>
+        {/* Background Video */}
+        <video
+          src="/videos/hero-1.mp4"
+          loop
+          muted
+          autoPlay
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
 
-        {/* Department Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
-          {departments.map((dept, index) => (
-            <div
-              key={dept.id}
-              ref={el => cardRefs.current[index] = el}
-              className="relative h-48 md:h-64 cursor-pointer overflow-hidden rounded-lg bg-blue-75 border border-white/10"
-              onMouseMove={(e) => handleCardMouseMove(e, index)}
-              onMouseLeave={() => handleCardMouseLeave(index)}
-              onMouseEnter={() => setHoveredCard(dept.id)}
-              onClick={() => handleDepartmentSelect(dept)}
-              style={{
-                transformStyle: "preserve-3d"
-              }}
-            >
-              {/* Video Background */}
-              <video
-                src={dept.videoSrc}
-                loop
-                muted
-                autoPlay
-                className="absolute inset-0 w-full h-full object-cover object-center opacity-40"
-              />
-              
-              {/* Hover Effect Overlay */}
-              {hoveredCard === dept.id && (
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: `radial-gradient(200px circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(109, 111, 226, 0.4), transparent)`,
-                    mixBlendMode: "overlay"
-                  }}
-                />
-              )}
-              
-              {/* Content Overlay */}
-              <div className="relative z-10 flex flex-col justify-between h-full p-3 md:p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                <div>
-                  <h3 className="special-font text-lg md:text-xl font-black text-blue-100 mb-2">
-                    {dept.title.split(' ').map((word, i) => (
-                      <span key={i}>
-                        {i === 1 ? <b>{word}</b> : word}{' '}
-                      </span>
-                    ))}
+        {/* Content Container */}
+        <div ref={contentRef} className="relative z-10 p-3 sm:p-4 md:p-6">
+          {/* Title Section */}
+          <div className="mb-4 sm:mb-6">
+            <h1 className="special-font text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-blue-100 mb-2 text-center">
+              Explore Departments
+            </h1>
+            <p className="font-circular-web text-xs sm:text-sm text-blue-50/80 text-center">
+              Choose your department to discover exciting events
+            </p>
+          </div>
+
+          {/* Departments Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+            {departments.map((dept, index) => (
+              <div
+                key={index}
+                className={`dept-card ${getColorClasses(dept.color)} backdrop-blur-sm rounded-lg p-3 sm:p-4 border hover:scale-105 transition-all duration-300 cursor-pointer`}
+                onClick={() => handleDepartmentClick(dept.shortName)}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="special-font text-sm sm:text-base font-black">
+                    {dept.shortName}
                   </h3>
-                  <p className="font-circular-web text-xs md:text-sm text-blue-50/70 leading-relaxed">
-                    {dept.description}
-                  </p>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center">
+                    <span className="text-xs sm:text-sm font-bold">{index + 1}</span>
+                  </div>
                 </div>
-                
-                {/* Action Buttons */}
-                <div className="flex flex-row gap-2 mt-3">
-                  <Button
-                    id={`details-${dept.id}`}
-                    title="Details"
-                    containerClass="bg-blue-600/90 hover:bg-blue-600 text-white flex-center gap-1 text-[10px] px-2 py-1"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(`See details: ${dept.title}`);
-                    }}
-                  />
-                  <Button
-                    id={`register-${dept.id}`}
-                    title="Register"
-                    leftIcon={<TiLocationArrow />}
-                    containerClass="bg-yellow-300 flex-center gap-1 text-[10px] px-2 py-1"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank");
-                    }}
-                  />
+                <h4 className="font-circular-web text-xs sm:text-sm font-bold mb-1 sm:mb-2 opacity-90">
+                  {dept.title}
+                </h4>
+                <p className="font-circular-web text-xs text-blue-50/80 mb-2 sm:mb-3 leading-relaxed">
+                  {dept.description}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {dept.events.slice(0, 2).map((event, eventIndex) => (
+                    <span
+                      key={eventIndex}
+                      className="text-xs bg-white/10 px-2 py-1 rounded-full"
+                    >
+                      {event}
+                    </span>
+                  ))}
+                  {dept.events.length > 2 && (
+                    <span className="text-xs bg-white/10 px-2 py-1 rounded-full">
+                      +{dept.events.length - 2}
+                    </span>
+                  )}
                 </div>
               </div>
-              
-              {/* Border Glow */}
-              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-violet-500/20" />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button
+              id="register-all"
+              title="Register for Events"
+              leftIcon={<TiLocationArrow />}
+              containerClass="bg-yellow-300 flex-center gap-2 text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3"
+              onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
+            />
+            <Button
+              id="learn-more"
+              title="Learn More"
+              containerClass="bg-white/10 flex-center gap-2 text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3 border border-white/20"
+              onClick={() => window.open("#", "_blank")}
+            />
+          </div>
         </div>
 
         {/* Close Button */}
-        <div className="flex justify-center">
-          <button
-            onClick={handleClose}
-            className="group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full bg-violet-300 px-6 py-2 text-black font-general text-xs uppercase tracking-wider"
-          >
-            <span className="relative inline-flex overflow-hidden">
-              <div className="translate-y-0 skew-y-0 transition duration-500 group-hover:translate-y-[-160%] group-hover:skew-y-12">
-                Close
-              </div>
-              <div className="absolute translate-y-[164%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
-                Close
-              </div>
-            </span>
-          </button>
-        </div>
+        <button
+          onClick={handleClose}
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
+        >
+          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
 
-        {/* Ambient Elements */}
-        <div className="absolute top-4 right-4 w-8 h-8 bg-yellow-300/10 rounded-full blur-xl" />
-        <div className="absolute bottom-4 left-4 w-12 h-12 bg-blue-400/10 rounded-full blur-2xl" />
+        {/* Ambient Effects */}
+        <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-40 h-40 bg-violet-500/20 rounded-full blur-3xl" />
       </div>
     </div>
   );

@@ -116,7 +116,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex gap-1.5 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-1 md:flex-wrap md:overflow-visible md:whitespace-normal md:pb-0 md:gap-2">
           {/* Multiple Event Buttons */}
           {events && events.length > 0 ? (
             events.map((event, index) => (
@@ -126,7 +126,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
                 onMouseEnter={() => setHoveredButton(`event-${event.key}`)}
                 onMouseLeave={() => setHoveredButton(null)}
                 onClick={() => onViewDetails?.(event.key)}
-                className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-3 py-1.5 text-[10px] uppercase text-white md:px-4 md:py-2 md:text-xs border border-white/20"
+                className="relative flex cursor-pointer items-center gap-0.5 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-2 py-1 text-[9px] uppercase text-white md:px-4 md:py-2 md:text-xs border border-white/20 flex-shrink-0"
               >
                 <div
                   className="pointer-events-none absolute -inset-px transition duration-300"
@@ -135,7 +135,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
                     background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
                   }}
                 />
-                <TiLocationArrow className="relative z-10" />
+                <TiLocationArrow className="relative z-10 w-3 h-3 md:w-4 md:h-4" />
                 <span className="relative z-10">{event.name}</span>
               </div>
             ))
@@ -146,7 +146,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
               onMouseEnter={() => setHoveredButton("details")}
               onMouseLeave={() => setHoveredButton(null)}
               onClick={() => onViewDetails?.(title)}
-              className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20"
+              className="relative flex cursor-pointer items-center gap-0.5 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-2 py-1 text-[9px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20 flex-shrink-0"
             >
               <div
                 className="pointer-events-none absolute -inset-px transition duration-300"
@@ -155,10 +155,37 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
                   background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
                 }}
               />
-              <TiLocationArrow className="relative z-10" />
+              <TiLocationArrow className="relative z-10 w-3 h-3 md:w-4 md:h-4" />
               <span className="relative z-10">view details</span>
             </div>
           ) : null}
+
+          {/* Download Rulebook Button - Only for Codekshestra */}
+          {(() => {
+            const titleText = extractTextFromElement(title).toLowerCase().replace(/[^a-z]/g, '');
+            const isCodekshestra = titleText.includes('hackathon') || titleText.includes('codekshestra');
+            return isCodekshestra ? (
+              <div
+                onMouseMove={handleButtonMouseMove}
+                onMouseEnter={() => setHoveredButton("rulebook")}
+                onMouseLeave={() => setHoveredButton(null)}
+                onClick={() => window.open("/img/CODEKSHESTRA.pdf", "_blank")}
+                className="relative flex cursor-pointer items-center gap-0.5 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-2 py-1 text-[9px] uppercase text-white md:px-4 md:py-2 md:text-xs border border-white/20 flex-shrink-0"
+              >
+                <div
+                  className="pointer-events-none absolute -inset-px transition duration-300"
+                  style={{
+                    opacity: hoveredButton === "rulebook" ? 1 : 0,
+                    background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #3b82f688, transparent)`,
+                  }}
+                />
+                <svg className="relative z-10 w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="relative z-10">rulebook</span>
+              </div>
+            ) : null;
+          })()}
 
           {/* Visit Website Button - Disabled */}
           {showVisitWebsite && (
@@ -166,9 +193,9 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
               onMouseMove={handleButtonMouseMove}
               onMouseEnter={() => setHoveredButton("visit")}
               onMouseLeave={() => setHoveredButton(null)}
-              className="relative flex cursor-not-allowed items-center gap-1 overflow-hidden rounded-full bg-gray-500/30 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-gray-400 md:px-5 md:py-2 md:text-xs border border-gray-600/30"
+              className="relative flex cursor-not-allowed items-center gap-0.5 overflow-hidden rounded-full bg-gray-500/30 backdrop-blur-sm px-2 py-1 text-[9px] uppercase text-gray-400 md:px-5 md:py-2 md:text-xs border border-gray-600/30 flex-shrink-0"
             >
-              <TiLocationArrow className="relative z-10" />
+              <TiLocationArrow className="relative z-10 w-3 h-3 md:w-4 md:h-4" />
               <span className="relative z-10">visit website</span>
             </div>
           )}
@@ -179,7 +206,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
             onMouseEnter={() => setHoveredButton("register")}
             onMouseLeave={() => setHoveredButton(null)}
             onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
-            className="relative flex cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-[10px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20"
+            className="relative flex cursor-pointer items-center gap-0.5 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm px-2 py-1 text-[9px] uppercase text-white md:px-5 md:py-2 md:text-xs border border-white/20 flex-shrink-0"
           >
             <div
               className="pointer-events-none absolute -inset-px transition duration-300"
@@ -188,7 +215,7 @@ export const BentoCard = ({ src, title, description, onViewDetails, events, show
                 background: `radial-gradient(80px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #fbbf2488, transparent)`,
               }}
             />
-            <TiLocationArrow className="relative z-10" />
+            <TiLocationArrow className="relative z-10 w-3 h-3 md:w-4 md:h-4" />
             <span className="relative z-10">register now</span>
           </div>
         </div>
@@ -238,8 +265,8 @@ export const Features = ({ id }) => {
         </BentoTilt>
 
         {/* Grid → stack on mobile */}
-        <div className="flex flex-col gap-5 md:grid md:h-[80vh] md:grid-cols-2 md:grid-rows-3">
-          <BentoTilt className="relative h-44 md:h-auto md:row-span-2">
+        <div className="flex flex-col gap-4 md:grid md:h-[90vh] md:grid-cols-3 md:grid-rows-2">
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
             <BentoCard
               src="img/cardbackground.png"
               title={
@@ -253,7 +280,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
             <BentoCard
               src="img/cardbackground4.png"
               title={
@@ -271,7 +298,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
             <BentoCard
               src="img/cardbackground2.png"
               title={
@@ -285,7 +312,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
             <BentoCard
               src="img/cardbackground3.png"
               title={
@@ -303,7 +330,7 @@ export const Features = ({ id }) => {
             />
           </BentoTilt>
 
-          <BentoTilt className="relative h-44 md:h-auto">
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
             <BentoCard
               src="img/cardbackground4.png"
               title={
@@ -315,6 +342,24 @@ export const Features = ({ id }) => {
               events={[
                 { key: 'cadonova', name: 'CADONOVA' },
                 { key: 'surveysprint', name: 'SURVEY SPRINT' }
+              ]}
+              showVisitWebsite={false}
+              onViewDetails={handleViewDetails}
+            />
+          </BentoTilt>
+
+          <BentoTilt className="relative h-36 md:h-auto md:col-span-1 md:row-span-1">
+            <BentoCard
+              src="img/cardbackground5.png"
+              title={
+                <>
+                  M<b>C</b>A
+                </>
+              }
+              description="Master computer applications with coding challenges."
+              events={[
+                { key: 'codecrusaders', name: 'CODEX RIFT' },
+                { key: 'dataduel', name: 'REBUILD' }
               ]}
               showVisitWebsite={false}
               onViewDetails={handleViewDetails}

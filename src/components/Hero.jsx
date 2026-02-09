@@ -149,8 +149,8 @@ const Hero = () => {
           />
         </div>
 
-        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
-     
+        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75 text-6xl sm:text-9xl">
+          TECH SYMPOSIUM
         </h1>
 
         <div className="absolute left-0 top-0 z-40 size-full">
@@ -174,13 +174,19 @@ const Hero = () => {
               containerClass="bg-yellow-300 flex-center gap-1"
               onClick={() => window.open("https://forms.gle/YYhCjenFBC6xpquMA", "_blank")}
             />
+            <Button
+              id="see-banner"
+              title="See Banner"
+              leftIcon={<TiLocationArrow />}
+              containerClass="bg-white/20 backdrop-blur-sm flex-center border mt-2 border-white/20"
+              onClick={() => window.open("https://drive.google.com/file/d/11000000000000000000000000000000/view?usp=sharing", "_blank")}
+            />
           </div>
         </div>
       </div>
-
-      <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
-     
-      </h1>
+       <h1 className="special-font hero-heading absolute bottom-5 right-5 text-6xl sm:text-9xl">
+          TECH SYMPOSIUM
+        </h1>            
 
       <DepartmentPopup 
         isOpen={isPopupOpen} 
