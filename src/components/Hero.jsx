@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import VideoPreview from "./VideoPreview";
 import DepartmentPopup from "./DepartmentPopup";
+import BannerPopup from "./BannerPopup";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +18,7 @@ const Hero = () => {
   const [loading, setLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isBannerPopupOpen, setIsBannerPopupOpen] = useState(false);
 
   const totalVideos = 4;
   const nextVdRef = useRef(null);
@@ -27,6 +29,10 @@ const Hero = () => {
 
   const handleRegisterClick = () => {
     setIsPopupOpen(true);
+  };
+
+  const handleSeeBannerClick = () => {
+    setIsBannerPopupOpen(true);
   };
 
   useEffect(() => {
@@ -179,7 +185,7 @@ const Hero = () => {
               title="See Banner"
               leftIcon={<TiLocationArrow />}
               containerClass="bg-white/20 backdrop-blur-sm flex-center border mt-2 border-white/20"
-              onClick={() => window.open("https://drive.google.com/file/d/11000000000000000000000000000000/view?usp=sharing", "_blank")}
+              onClick={handleSeeBannerClick}
             />
           </div>
         </div>
@@ -191,6 +197,12 @@ const Hero = () => {
       <DepartmentPopup 
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
+      />
+      
+      <BannerPopup 
+        isOpen={isBannerPopupOpen}
+        onClose={() => setIsBannerPopupOpen(false)}
+        imageSrc="/img/banner.jpeg"
       />
     </div>
   );
